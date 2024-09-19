@@ -1,7 +1,11 @@
 # Changelog
 
 
-## v0.0.2
+## v0.0.3-alpha
+
+[compare changes](https://github.com/vegetables-school/send-relevant-comment-action/compare/0.0.2-alpha...v0.0.3)
+
+## v0.0.2-alpha
 
 [compare changes](https://github.com/vegetables-school/send-relevant-comment-action/compare/0.0.1-alpha...v0.0.2)
 
@@ -23,7 +27,7 @@
 - 阿Cai ([@RSS1102](http://github.com/RSS1102))
 - 阿菜 Cai ([@RSS1102](http://github.com/RSS1102))
 
-## v0.0.1
+## v0.0.1-alpha
 
 
 ### 🚀 Enhancements

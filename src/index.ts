@@ -18,13 +18,13 @@ export async function run(): Promise<void> {
       getCustomCommentInput ||
       `This is a comment related to #${context.issue.number}`
 
-    const prRelateArr = getPrRelate(octokit, context)
+    const prRelateArr = await getPrRelate(octokit, context)
 
-    prRelateArr.then(prRelate => {
+    prRelateArr.forEach(async issueNumber => {
       octokit.rest.issues.createComment({
         owner: context.repo.owner,
         repo: context.repo.repo,
-        issue_number: context.issue.number,
+        issue_number: issueNumber,
         body: customCommentBody
       })
     })
