@@ -1,8 +1,7 @@
 name: Send Relevant comment
 on:
-  push:
-    branches:
-      - main
+  pull_request:
+    types: [closed]
 
 permissions:
   pull-requests: write
@@ -10,6 +9,7 @@ permissions:
 
 jobs:
   version:
+    if: github.event.pull_request.merged == true
     timeout-minutes: 15
     runs-on: ubuntu-latest
     steps:
