@@ -1,7 +1,7 @@
 {
   "name": "@vegetables-school/send-relevant-comment-action",
   "description": "Send comment of relevant issues and PR within the PR",
-  "version": "0.0.1-alpha",
+  "version": "0.0.1",
   "author": "",
   "private": true,
   "homepage": "https://github.com/vegetables-school/send-relevant-comment-action",
@@ -33,7 +33,8 @@
     "lint": "npx eslint . -c ./.github/linters/.eslintrc.yml",
     "package": "npx ncc build src/index.ts -o dist --source-map --license licenses.txt",
     "package:watch": "npm run package -- --watch",
-    "test": "npx jest"
+    "test": "npx jest",
+    "changelog": "pnpm run build && npx changelogen@latest --release --no-commit --no-tag"
   },
   "license": "MIT",
   "jest": {
