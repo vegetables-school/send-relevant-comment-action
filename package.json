@@ -1,7 +1,7 @@
 {
   "name": "@vegetables-school/send-relevant-comment-action",
   "description": "Send comment of relevant issues and PR within the PR",
-  "version": "0.0.0",
+  "version": "0.0.1-alpha",
   "author": "",
   "private": true,
   "homepage": "https://github.com/vegetables-school/send-relevant-comment-action",

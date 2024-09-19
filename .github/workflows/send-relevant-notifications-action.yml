@@ -1,0 +1,20 @@
+name: Send Relevant comment
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  pull-requests: write
+  issues: write
+
+jobs:
+  version:
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code repository
+        uses: vegetables-school/send-relevant-comment-action
+        with:
+          # github-token: ${{ secrets.GITHUB_TOKEN }}
+          custom-comment: 'Hello, this is a custom comment'

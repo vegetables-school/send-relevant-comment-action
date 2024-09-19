@@ -1,4 +1,4 @@
-# send-relevant-comment-action
+# send-relevant-notifications-action
 
-> [!WARNING] This project is still under development. There will be significant
-> changes.
+> [!WARNING]
+> This project is still under development. There will be significant changes.
