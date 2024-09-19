@@ -1,23 +1,19 @@
-name: 'The name of your action here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'vegetables-school/send-relevant-comment-action'
+description: 'Send comment of relevant issues and PR within the PR'
+author: 'vegetables-school'
 
-# Add your action's branding here. This will appear on the GitHub Marketplace.
 branding:
-  icon: 'heart'
-  color: 'red'
+  icon: 'message-square'
+  color: 'blue'
 
-# Define your inputs here.
 inputs:
-  milliseconds:
-    description: 'Your input description here'
-    required: true
-    default: '1000'
+  github-token:
+    description: 'GitHub token'
+    required: false
 
-# Define your outputs here.
-outputs:
-  time:
-    description: 'Your output description here'
+  custom-comment:
+    description: 'Custom comment to be added to the notification'
+    required: true
 
 runs:
   using: node20

@@ -1,30 +1,31 @@
 {
-  "name": "@vegetables-school/send-relevant-notifications-action",
-  "description": "Send notifications of relevant issues and PR within the PR",
+  "name": "@vegetables-school/send-relevant-comment-action",
+  "description": "Send comment of relevant issues and PR within the PR",
   "version": "0.0.0",
   "author": "",
   "private": true,
-  "homepage": "https://github.com/vegetables-school/send-relevant-notifications-action",
+  "homepage": "https://github.com/vegetables-school/send-relevant-comment-action",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vegetables-school/send-relevant-notifications-action.git"
+    "url": "git+https://github.com/vegetables-school/send-relevant-comment-action.git"
   },
   "bugs": {
-    "url": "https://github.com/vegetables-school/send-relevant-notifications-action/issues"
+    "url": "https://github.com/vegetables-school/send-relevant-comment-action/issues"
   },
   "keywords": [
     "actions",
     "node",
-    "setup"
+    "pr",
+    "issue"
   ],
   "exports": {
     ".": "./dist/index.js"
   },
   "engines": {
-    "node": ">=21"
+    "node": ">=20"
   },
   "scripts": {
-    "bundle": "npm run format:write && npm run package",
+    "build": "npm run format:write && npm run package",
     "ci-test": "npx jest",
     "coverage": "npx make-coverage-badge --output-path ./badges/coverage.svg",
     "format:write": "npx prettier --write .",
@@ -65,7 +66,8 @@
     ]
   },
   "dependencies": {
-    "@actions/core": "^1.10.1"
+    "@actions/core": "^1.10.1",
+    "@actions/github": "^6.0.0"
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",
