@@ -16,5 +16,5 @@ jobs:
       - name: checkout code repository
         uses: vegetables-school/send-relevant-comment-action@0.0.1-alpha
         with:
-          # github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           custom-comment: 'Hello, this is a custom comment'

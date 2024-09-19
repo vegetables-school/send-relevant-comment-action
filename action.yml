@@ -12,7 +12,7 @@ inputs:
     required: false
 
   custom-comment:
-    description: 'Custom comment to be added to the notification'
+    description: 'Custom comment to be added to the comment'
     required: true
 
 runs:

@@ -1,6 +1,28 @@
 # Changelog
 
 
+## v0.0.2
+
+[compare changes](https://github.com/vegetables-school/send-relevant-comment-action/compare/0.0.1-alpha...v0.0.2)
+
+### 🚀 Enhancements
+
+- **build:** Add `changelog` ([97083cc](https://github.com/vegetables-school/send-relevant-comment-action/commit/97083cc))
+
+### 🩹 Fixes
+
+- **ci:** Use the correct version for testing ([faea10f](https://github.com/vegetables-school/send-relevant-comment-action/commit/faea10f))
+- **ci:** Use the correct version for testing `@0.0.1-alpha` ([b0b94fe](https://github.com/vegetables-school/send-relevant-comment-action/commit/b0b94fe))
+
+### 🏡 Chore
+
+- **ci:** Operation when pr is merged ([6b4cd46](https://github.com/vegetables-school/send-relevant-comment-action/commit/6b4cd46))
+
+### ❤️ Contributors
+
+- 阿Cai ([@RSS1102](http://github.com/RSS1102))
+- 阿菜 Cai ([@RSS1102](http://github.com/RSS1102))
+
 ## v0.0.1
 
 
