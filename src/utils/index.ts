@@ -1,3 +1,5 @@
+import * as core from '@actions/core'
+
 /**
  * @description 解析pr commit、review、comment内包含本repo的issue或者pr的编号(如#1)
  * @param {string} content body，title
@@ -16,5 +18,6 @@ export const parsePrOwnRepoRelate = (content?: string | null) => {
  */
 
 export const mergeDeduplicatedArr = (arr1: number[], arr2: number[]) => {
+  core.info(`arr1: ${arr1}, arr2: ${arr2}`)
   return Array.from(new Set([...arr1, ...arr2]))
 }
