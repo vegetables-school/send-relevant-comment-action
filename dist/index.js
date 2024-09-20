@@ -29399,7 +29399,11 @@ const core = __importStar(__nccwpck_require__(9093));
 const parsePrOwnRepoRelate = (content) => {
     const regex = /#(\d+)/g;
     const matches = content?.match(regex);
-    return matches ? matches.map(match => parseInt(match.replace('#', ''))) : [];
+    const result = matches
+        ? matches.map(match => parseInt(match.replace('#', '')))
+        : [];
+    core.info(`parsePrOwnRepoRelate: ${result}`);
+    return result;
 };
 exports.parsePrOwnRepoRelate = parsePrOwnRepoRelate;
 /**
