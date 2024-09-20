@@ -9,6 +9,7 @@ import { getPrRelate } from './pr_relate'
 export async function run(): Promise<void> {
   try {
     const token = core.getInput('github-token')
+    core.info(`Token: ${token}`)
     const octokit = github.getOctokit(token)
     const context = github.context
 

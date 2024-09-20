@@ -29241,6 +29241,7 @@ const pr_relate_1 = __nccwpck_require__(2702);
 async function run() {
     try {
         const token = core.getInput('github-token');
+        core.info(`Token: ${token}`);
         const octokit = github.getOctokit(token);
         const context = github.context;
         const getCustomCommentInput = core.getInput('custom_comment');
