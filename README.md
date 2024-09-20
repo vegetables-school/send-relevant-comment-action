@@ -1,4 +1,4 @@
-# send-relevant-comment-action
+# send-relevant-comment-action-test
 
 It is used to collect links in pr or issues that contain other links that exist on github.
 
