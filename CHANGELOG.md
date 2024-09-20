@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.0.6
+
+[compare changes](https://github.com/vegetables-school/send-relevant-comment-action/compare/v0.0.5...v0.0.6)
+
+### 🏡 Chore
+
+- **release:** V0.0.5 ([fe8ebf1](https://github.com/vegetables-school/send-relevant-comment-action/commit/fe8ebf1))
+
+### ❤️ Contributors
+
+- 阿Cai ([@RSS1102](http://github.com/RSS1102))
+
 ## v0.0.5
 
 [compare changes](https://github.com/vegetables-school/send-relevant-comment-action/compare/v0.0.4...v0.0.5)
