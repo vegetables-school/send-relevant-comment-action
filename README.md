@@ -25,7 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: send relevant comment
-        uses: vegetables-school/send-relevant-comment-action@v1
+        uses: vegetables-school/send-relevant-comment-action@main
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           custom-comment: 'Hello, this is a custom comment'
