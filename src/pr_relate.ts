@@ -36,8 +36,14 @@ export async function getPrRelate(
     repo: context.repo.repo,
     pull_number: context.issue.number
   })
-  mergeDeduplicatedArr(prRelate, parsePrOwnRepoRelate(pullRequest.title))
-  mergeDeduplicatedArr(prRelate, parsePrOwnRepoRelate(pullRequest?.body))
+  prRelate = mergeDeduplicatedArr(
+    prRelate,
+    parsePrOwnRepoRelate(pullRequest.title)
+  )
+  prRelate = mergeDeduplicatedArr(
+    prRelate,
+    parsePrOwnRepoRelate(pullRequest?.body)
+  )
 
   //  获取 pull request 的所有 commit 信息
   const { data: listCommits } = await octokit.rest.pulls.listCommits({
@@ -45,8 +51,12 @@ export async function getPrRelate(
     repo: context.repo.repo,
     pull_number: context.issue.number
   })
-  listCommits.forEach(commit =>
-    mergeDeduplicatedArr(prRelate, parsePrOwnRepoRelate(commit.commit.message))
+  listCommits.forEach(
+    commit =>
+      (prRelate = mergeDeduplicatedArr(
+        prRelate,
+        parsePrOwnRepoRelate(commit.commit.message)
+      ))
   )
 
   //  获取 pull request 的所有 review comment 信息
@@ -56,8 +66,12 @@ export async function getPrRelate(
       repo: context.repo.repo,
       pull_number: context.issue.number
     })
-  listReviewComments.forEach(reviewComment =>
-    mergeDeduplicatedArr(prRelate, parsePrOwnRepoRelate(reviewComment.body))
+  listReviewComments.forEach(
+    reviewComment =>
+      (prRelate = mergeDeduplicatedArr(
+        prRelate,
+        parsePrOwnRepoRelate(reviewComment.body)
+      ))
   )
 
   //   获取 pull request 的所有 comment 信息
@@ -66,8 +80,12 @@ export async function getPrRelate(
     repo: context.repo.repo,
     issue_number: context.issue.number
   })
-  listComments.forEach(comment =>
-    mergeDeduplicatedArr(prRelate, parsePrOwnRepoRelate(comment?.body))
+  listComments.forEach(
+    comment =>
+      (prRelate = mergeDeduplicatedArr(
+        prRelate,
+        parsePrOwnRepoRelate(comment?.body)
+      ))
   )
 
   return prRelate

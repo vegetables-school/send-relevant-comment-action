@@ -29241,7 +29241,9 @@ const pr_relate_1 = __nccwpck_require__(2702);
 async function run() {
     try {
         const token = core.getInput('github-token');
-        core.info(`Token: ${token}`);
+        if (!token) {
+            core.setFailed('GitHub token not found, please provide github-token');
+        }
         const octokit = github.getOctokit(token);
         const context = github.context;
         const getCustomCommentInput = core.getInput('custom_comment');
@@ -29249,7 +29251,6 @@ async function run() {
             `This is a comment related to #${context.issue.number}`;
         const prRelateArr = await (0, pr_relate_1.getPrRelate)(octokit, context);
         prRelateArr.forEach(async (issueNumber) => {
-            core.info(`Creating comment on issue #${issueNumber}`);
             octokit.rest.issues.createComment({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
@@ -29302,29 +29303,29 @@ async function getPrRelate(octokit, context) {
         repo: context.repo.repo,
         pull_number: context.issue.number
     });
-    (0, utils_1.mergeDeduplicatedArr)(prRelate, (0, utils_1.parsePrOwnRepoRelate)(pullRequest.title));
-    (0, utils_1.mergeDeduplicatedArr)(prRelate, (0, utils_1.parsePrOwnRepoRelate)(pullRequest?.body));
+    prRelate = (0, utils_1.mergeDeduplicatedArr)(prRelate, (0, utils_1.parsePrOwnRepoRelate)(pullRequest.title));
+    prRelate = (0, utils_1.mergeDeduplicatedArr)(prRelate, (0, utils_1.parsePrOwnRepoRelate)(pullRequest?.body));
     //  获取 pull request 的所有 commit 信息
     const { data: listCommits } = await octokit.rest.pulls.listCommits({
         owner: context.repo.owner,
         repo: context.repo.repo,
         pull_number: context.issue.number
     });
-    listCommits.forEach(commit => (0, utils_1.mergeDeduplicatedArr)(prRelate, (0, utils_1.parsePrOwnRepoRelate)(commit.commit.message)));
+    listCommits.forEach(commit => (prRelate = (0, utils_1.mergeDeduplicatedArr)(prRelate, (0, utils_1.parsePrOwnRepoRelate)(commit.commit.message))));
     //  获取 pull request 的所有 review comment 信息
     const { data: listReviewComments } = await octokit.rest.pulls.listReviewComments({
         owner: context.repo.owner,
         repo: context.repo.repo,
         pull_number: context.issue.number
     });
-    listReviewComments.forEach(reviewComment => (0, utils_1.mergeDeduplicatedArr)(prRelate, (0, utils_1.parsePrOwnRepoRelate)(reviewComment.body)));
+    listReviewComments.forEach(reviewComment => (prRelate = (0, utils_1.mergeDeduplicatedArr)(prRelate, (0, utils_1.parsePrOwnRepoRelate)(reviewComment.body))));
     //   获取 pull request 的所有 comment 信息
     const { data: listComments } = await octokit.rest.issues.listComments({
         owner: context.repo.owner,
         repo: context.repo.repo,
         issue_number: context.issue.number
     });
-    listComments.forEach(comment => (0, utils_1.mergeDeduplicatedArr)(prRelate, (0, utils_1.parsePrOwnRepoRelate)(comment?.body)));
+    listComments.forEach(comment => (prRelate = (0, utils_1.mergeDeduplicatedArr)(prRelate, (0, utils_1.parsePrOwnRepoRelate)(comment?.body))));
     return prRelate;
 }
 
@@ -29332,36 +29333,12 @@ async function getPrRelate(octokit, context) {
 /***/ }),
 
 /***/ 9267:
-/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+/***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
 
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.mergeDeduplicatedArr = exports.parsePrOwnRepoRelate = void 0;
-const core = __importStar(__nccwpck_require__(9093));
 /**
  * @description 解析pr commit、review、comment内包含本repo的issue或者pr的编号(如#1)
  * @param {string} content body，title
@@ -29369,14 +29346,10 @@ const core = __importStar(__nccwpck_require__(9093));
  */
 const parsePrOwnRepoRelate = (content) => {
     const regex = /#(\d+)/g;
-    core.info(`content: ${content}`);
     const matches = content?.match(regex);
-    core.info(Array.isArray(matches)?.toString());
-    core.info(`match: ${matches}`);
     const result = matches
         ? matches.map(match => parseInt(match.replace('#', '')))
         : [];
-    core.info(`parsePrOwnRepoRelate: ${result}`);
     return result;
 };
 exports.parsePrOwnRepoRelate = parsePrOwnRepoRelate;
@@ -29386,11 +29359,6 @@ exports.parsePrOwnRepoRelate = parsePrOwnRepoRelate;
  * @param {number[]} arr2
  */
 const mergeDeduplicatedArr = (arr1, arr2) => {
-    core.info(`arr1: ${arr1}`);
-    core.info(`arr2: ${arr2}`);
-    core.info(`arrs: ${[...arr1, ...arr2]}`);
-    core.info(`newSet: ${new Set([...arr1, ...arr2])}`);
-    core.info(`mergeDeduplicatedArr: ${Array.from(new Set([...arr1, ...arr2]))}`);
     return Array.from(new Set([...arr1, ...arr2]));
 };
 exports.mergeDeduplicatedArr = mergeDeduplicatedArr;

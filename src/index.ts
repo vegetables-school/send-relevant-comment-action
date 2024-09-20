@@ -9,7 +9,9 @@ import { getPrRelate } from './pr_relate'
 export async function run(): Promise<void> {
   try {
     const token = core.getInput('github-token')
-    core.info(`Token: ${token}`)
+    if (!token) {
+      core.setFailed('GitHub token not found, please provide github-token')
+    }
     const octokit = github.getOctokit(token)
     const context = github.context
 
@@ -21,7 +23,6 @@ export async function run(): Promise<void> {
     const prRelateArr = await getPrRelate(octokit, context)
 
     prRelateArr.forEach(async issueNumber => {
-      core.info(`Creating comment on issue #${issueNumber}`)
       octokit.rest.issues.createComment({
         owner: context.repo.owner,
         repo: context.repo.repo,
