@@ -15,7 +15,7 @@ export async function run(): Promise<void> {
     const octokit = github.getOctokit(token)
     const context = github.context
 
-    const getCustomCommentInput = core.getInput('custom_comment')
+    const getCustomCommentInput = core.getInput('custom-comment')
     const customCommentBody =
       getCustomCommentInput ||
       `This is a comment related to #${context.issue.number}`
