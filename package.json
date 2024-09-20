@@ -1,7 +1,8 @@
 {
   "name": "@vegetables-school/send-relevant-comment-action",
   "description": "Send comment of relevant issues and PR within the PR",
-  "version": "0.0.5",
+  "license": "MIT",
+  "version": "1.0.1",
   "author": "vegetables-school",
   "private": true,
   "homepage": "https://github.com/vegetables-school/send-relevant-comment-action",
@@ -34,9 +35,8 @@
     "package": "npx ncc build src/index.ts -o dist --source-map --license licenses.txt",
     "package:watch": "npm run package -- --watch",
     "test": "npx jest",
-    "changelog": "npx changelogen@latest --release --no-commit && pnpm run build"
+    "auto-release": "npx changelogen@latest --release --no-commit && pnpm run build"
   },
-  "license": "MIT",
   "jest": {
     "preset": "ts-jest",
     "verbose": true,

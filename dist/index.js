@@ -29240,15 +29240,17 @@ const pr_relate_1 = __nccwpck_require__(2702);
  */
 async function run() {
     try {
-        const octokit = github.getOctokit(process.env['GITHUB_TOKEN'] || core.getInput('github_token'));
+        const token = core.getInput('github-token');
+        if (!token) {
+            core.setFailed('GitHub token not found, please provide github-token');
+        }
+        const octokit = github.getOctokit(token);
         const context = github.context;
-        const getCustomCommentInput = core.getInput('custom_comment');
+        const getCustomCommentInput = core.getInput('custom-comment');
         const customCommentBody = getCustomCommentInput ||
             `This is a comment related to #${context.issue.number}`;
         const prRelateArr = await (0, pr_relate_1.getPrRelate)(octokit, context);
-        core.info(`Related issues or PRs: ${prRelateArr.join(', ')}`);
         prRelateArr.forEach(async (issueNumber) => {
-            core.info(`Creating comment on issue #${issueNumber}`);
             octokit.rest.issues.createComment({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
@@ -29263,6 +29265,7 @@ async function run() {
             core.setFailed(error.message);
     }
 }
+run();
 
 
 /***/ }),
@@ -29300,29 +29303,29 @@ async function getPrRelate(octokit, context) {
         repo: context.repo.repo,
         pull_number: context.issue.number
     });
-    (0, utils_1.mergeDeduplicatedArr)(prRelate, (0, utils_1.parsePrOwnRepoRelate)(pullRequest.title));
-    (0, utils_1.mergeDeduplicatedArr)(prRelate, (0, utils_1.parsePrOwnRepoRelate)(pullRequest?.body));
+    prRelate = (0, utils_1.mergeDeduplicatedArr)(prRelate, (0, utils_1.parsePrOwnRepoRelate)(pullRequest.title));
+    prRelate = (0, utils_1.mergeDeduplicatedArr)(prRelate, (0, utils_1.parsePrOwnRepoRelate)(pullRequest?.body));
     //  获取 pull request 的所有 commit 信息
     const { data: listCommits } = await octokit.rest.pulls.listCommits({
         owner: context.repo.owner,
         repo: context.repo.repo,
         pull_number: context.issue.number
     });
-    listCommits.forEach(commit => (0, utils_1.mergeDeduplicatedArr)(prRelate, (0, utils_1.parsePrOwnRepoRelate)(commit.commit.message)));
+    listCommits.forEach(commit => (prRelate = (0, utils_1.mergeDeduplicatedArr)(prRelate, (0, utils_1.parsePrOwnRepoRelate)(commit.commit.message))));
     //  获取 pull request 的所有 review comment 信息
     const { data: listReviewComments } = await octokit.rest.pulls.listReviewComments({
         owner: context.repo.owner,
         repo: context.repo.repo,
         pull_number: context.issue.number
     });
-    listReviewComments.forEach(reviewComment => (0, utils_1.mergeDeduplicatedArr)(prRelate, (0, utils_1.parsePrOwnRepoRelate)(reviewComment.body)));
+    listReviewComments.forEach(reviewComment => (prRelate = (0, utils_1.mergeDeduplicatedArr)(prRelate, (0, utils_1.parsePrOwnRepoRelate)(reviewComment.body))));
     //   获取 pull request 的所有 comment 信息
     const { data: listComments } = await octokit.rest.issues.listComments({
         owner: context.repo.owner,
         repo: context.repo.repo,
         issue_number: context.issue.number
     });
-    listComments.forEach(comment => (0, utils_1.mergeDeduplicatedArr)(prRelate, (0, utils_1.parsePrOwnRepoRelate)(comment?.body)));
+    listComments.forEach(comment => (prRelate = (0, utils_1.mergeDeduplicatedArr)(prRelate, (0, utils_1.parsePrOwnRepoRelate)(comment?.body))));
     return prRelate;
 }
 
@@ -29344,7 +29347,10 @@ exports.mergeDeduplicatedArr = exports.parsePrOwnRepoRelate = void 0;
 const parsePrOwnRepoRelate = (content) => {
     const regex = /#(\d+)/g;
     const matches = content?.match(regex);
-    return matches ? matches.map(match => parseInt(match.replace('#', ''))) : [];
+    const result = matches
+        ? matches.map(match => parseInt(match.replace('#', '')))
+        : [];
+    return result;
 };
 exports.parsePrOwnRepoRelate = parsePrOwnRepoRelate;
 /**

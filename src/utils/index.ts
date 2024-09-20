@@ -1,3 +1,5 @@
+import * as core from '@actions/core'
+
 /**
  * @description 解析pr commit、review、comment内包含本repo的issue或者pr的编号(如#1)
  * @param {string} content body，title
@@ -6,7 +8,10 @@
 export const parsePrOwnRepoRelate = (content?: string | null) => {
   const regex = /#(\d+)/g
   const matches = content?.match(regex)
-  return matches ? matches.map(match => parseInt(match.replace('#', ''))) : []
+  const result = matches
+    ? matches.map(match => parseInt(match.replace('#', '')))
+    : []
+  return result
 }
 
 /**

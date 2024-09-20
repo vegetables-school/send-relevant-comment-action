@@ -9,11 +9,10 @@ branding:
 inputs:
   github-token:
     description: 'GitHub token'
-    required: false
+    required: true
 
   custom-comment:
     description: 'Custom comment to be added to the comment'
-    required: true
 
 runs:
   using: node20
