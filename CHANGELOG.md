@@ -1,6 +1,10 @@
 # Changelog
 
 
+## v1.0.1
+
+[compare changes](https://github.com/vegetables-school/send-relevant-comment-action/compare/v0.0.20...v1.0.1)
+
 ## v0.0.20
 
 [compare changes](https://github.com/vegetables-school/send-relevant-comment-action/compare/v0.0.19...v0.0.20)

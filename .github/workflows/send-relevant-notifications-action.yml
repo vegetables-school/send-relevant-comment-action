@@ -1,4 +1,4 @@
-name: Send Relevant comment
+name: Send Relevant Comment
 on:
   pull_request:
     types: [closed]
@@ -13,8 +13,8 @@ jobs:
     timeout-minutes: 15
     runs-on: ubuntu-latest
     steps:
-      - name: checkout code repository
-        uses: vegetables-school/send-relevant-comment-action@v0.0.20
+      - name: send relevant comment
+        uses: vegetables-school/send-relevant-comment-action@v1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          custom-comment: 'Hello, this is a custom comment'
+          custom-comment: 'Hello, This is the trigger comment'

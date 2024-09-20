@@ -16,11 +16,9 @@ export async function run(): Promise<void> {
     const context = github.context
 
     const getCustomCommentInput = core.getInput('custom-comment')
-    core.info(`getCustomCommentInput: ${getCustomCommentInput}`)
     const customCommentBody =
       getCustomCommentInput ||
       `This is a comment related to #${context.issue.number}`
-    core.info(`customCommentBody: ${customCommentBody}`)
 
     const prRelateArr = await getPrRelate(octokit, context)
 
