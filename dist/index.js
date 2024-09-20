@@ -29246,7 +29246,9 @@ async function run() {
         const customCommentBody = getCustomCommentInput ||
             `This is a comment related to #${context.issue.number}`;
         const prRelateArr = await (0, pr_relate_1.getPrRelate)(octokit, context);
+        core.info(`Related issues or PRs: ${prRelateArr.join(', ')}`);
         prRelateArr.forEach(async (issueNumber) => {
+            core.info(`Creating comment on issue #${issueNumber}`);
             octokit.rest.issues.createComment({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
