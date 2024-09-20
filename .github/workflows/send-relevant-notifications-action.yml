@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout code repository
-        uses: vegetables-school/send-relevant-comment-action@v0.0.7
+        uses: vegetables-school/send-relevant-comment-action@v0.0.8
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           custom-comment: 'Hello, this is a custom comment'

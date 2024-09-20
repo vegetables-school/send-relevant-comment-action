@@ -29240,7 +29240,9 @@ const pr_relate_1 = __nccwpck_require__(2702);
  */
 async function run() {
     try {
-        const octokit = github.getOctokit(process.env['GITHUB_TOKEN'] || core.getInput('github_token'));
+        const token = core.getInput('token');
+        core.info(`Token: ${process.env.GITHUB_TOKEN}`);
+        const octokit = github.getOctokit(token);
         const context = github.context;
         const getCustomCommentInput = core.getInput('custom_comment');
         const customCommentBody = getCustomCommentInput ||
