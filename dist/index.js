@@ -29248,7 +29248,6 @@ async function run() {
         const customCommentBody = getCustomCommentInput ||
             `This is a comment related to #${context.issue.number}`;
         const prRelateArr = await (0, pr_relate_1.getPrRelate)(octokit, context);
-        core.info(`Related issues or PRs: ${prRelateArr.join(', ')}`);
         prRelateArr.forEach(async (issueNumber) => {
             core.info(`Creating comment on issue #${issueNumber}`);
             octokit.rest.issues.createComment({
@@ -29271,37 +29270,13 @@ run();
 /***/ }),
 
 /***/ 2702:
-/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 "use strict";
 
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.getPrRelate = getPrRelate;
 const utils_1 = __nccwpck_require__(9267);
-const core = __importStar(__nccwpck_require__(9093));
 /**
  * 可能包含的函数
  * pulls.get()
@@ -29327,7 +29302,6 @@ async function getPrRelate(octokit, context) {
         repo: context.repo.repo,
         pull_number: context.issue.number
     });
-    core.info(`pullRequest: ${JSON.stringify(pullRequest)}`);
     (0, utils_1.mergeDeduplicatedArr)(prRelate, (0, utils_1.parsePrOwnRepoRelate)(pullRequest.title));
     (0, utils_1.mergeDeduplicatedArr)(prRelate, (0, utils_1.parsePrOwnRepoRelate)(pullRequest?.body));
     //  获取 pull request 的所有 commit 信息
@@ -29336,7 +29310,6 @@ async function getPrRelate(octokit, context) {
         repo: context.repo.repo,
         pull_number: context.issue.number
     });
-    core.info(`listCommits: ${JSON.stringify(listCommits)}`);
     listCommits.forEach(commit => (0, utils_1.mergeDeduplicatedArr)(prRelate, (0, utils_1.parsePrOwnRepoRelate)(commit.commit.message)));
     //  获取 pull request 的所有 review comment 信息
     const { data: listReviewComments } = await octokit.rest.pulls.listReviewComments({
@@ -29344,7 +29317,6 @@ async function getPrRelate(octokit, context) {
         repo: context.repo.repo,
         pull_number: context.issue.number
     });
-    core.info(`listReviewComments: ${JSON.stringify(listReviewComments)}`);
     listReviewComments.forEach(reviewComment => (0, utils_1.mergeDeduplicatedArr)(prRelate, (0, utils_1.parsePrOwnRepoRelate)(reviewComment.body)));
     //   获取 pull request 的所有 comment 信息
     const { data: listComments } = await octokit.rest.issues.listComments({
@@ -29352,7 +29324,6 @@ async function getPrRelate(octokit, context) {
         repo: context.repo.repo,
         issue_number: context.issue.number
     });
-    core.info(`listComments: ${JSON.stringify(listComments)}`);
     listComments.forEach(comment => (0, utils_1.mergeDeduplicatedArr)(prRelate, (0, utils_1.parsePrOwnRepoRelate)(comment?.body)));
     return prRelate;
 }
@@ -29399,6 +29370,7 @@ const core = __importStar(__nccwpck_require__(9093));
 const parsePrOwnRepoRelate = (content) => {
     const regex = /#(\d+)/g;
     const matches = content?.match(regex);
+    core.info(`parsePrOwnRepoRelate: ${matches}`);
     const result = matches
         ? matches.map(match => parseInt(match.replace('#', '')))
         : [];
@@ -29412,7 +29384,6 @@ exports.parsePrOwnRepoRelate = parsePrOwnRepoRelate;
  * @param {number[]} arr2
  */
 const mergeDeduplicatedArr = (arr1, arr2) => {
-    core.info(`arr1: ${arr1}, arr2: ${arr2}`);
     return Array.from(new Set([...arr1, ...arr2]));
 };
 exports.mergeDeduplicatedArr = mergeDeduplicatedArr;

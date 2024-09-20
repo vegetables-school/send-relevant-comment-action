@@ -36,7 +36,6 @@ export async function getPrRelate(
     repo: context.repo.repo,
     pull_number: context.issue.number
   })
-  core.info(`pullRequest: ${JSON.stringify(pullRequest)}`)
   mergeDeduplicatedArr(prRelate, parsePrOwnRepoRelate(pullRequest.title))
   mergeDeduplicatedArr(prRelate, parsePrOwnRepoRelate(pullRequest?.body))
 
@@ -46,7 +45,6 @@ export async function getPrRelate(
     repo: context.repo.repo,
     pull_number: context.issue.number
   })
-  core.info(`listCommits: ${JSON.stringify(listCommits)}`)
   listCommits.forEach(commit =>
     mergeDeduplicatedArr(prRelate, parsePrOwnRepoRelate(commit.commit.message))
   )
@@ -58,7 +56,6 @@ export async function getPrRelate(
       repo: context.repo.repo,
       pull_number: context.issue.number
     })
-  core.info(`listReviewComments: ${JSON.stringify(listReviewComments)}`)
   listReviewComments.forEach(reviewComment =>
     mergeDeduplicatedArr(prRelate, parsePrOwnRepoRelate(reviewComment.body))
   )
@@ -69,7 +66,6 @@ export async function getPrRelate(
     repo: context.repo.repo,
     issue_number: context.issue.number
   })
-  core.info(`listComments: ${JSON.stringify(listComments)}`)
   listComments.forEach(comment =>
     mergeDeduplicatedArr(prRelate, parsePrOwnRepoRelate(comment?.body))
   )

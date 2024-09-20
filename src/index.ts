@@ -19,7 +19,6 @@ export async function run(): Promise<void> {
       `This is a comment related to #${context.issue.number}`
 
     const prRelateArr = await getPrRelate(octokit, context)
-    core.info(`Related issues or PRs: ${prRelateArr.join(', ')}`)
 
     prRelateArr.forEach(async issueNumber => {
       core.info(`Creating comment on issue #${issueNumber}`)
