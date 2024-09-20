@@ -29247,8 +29247,10 @@ async function run() {
         const octokit = github.getOctokit(token);
         const context = github.context;
         const getCustomCommentInput = core.getInput('custom-comment');
+        core.info(`getCustomCommentInput: ${getCustomCommentInput}`);
         const customCommentBody = getCustomCommentInput ||
             `This is a comment related to #${context.issue.number}`;
+        core.info(`customCommentBody: ${customCommentBody}`);
         const prRelateArr = await (0, pr_relate_1.getPrRelate)(octokit, context);
         prRelateArr.forEach(async (issueNumber) => {
             octokit.rest.issues.createComment({
