@@ -29386,6 +29386,10 @@ exports.parsePrOwnRepoRelate = parsePrOwnRepoRelate;
  * @param {number[]} arr2
  */
 const mergeDeduplicatedArr = (arr1, arr2) => {
+    core.info(`arr1: ${arr1}`);
+    core.info(`arr2: ${arr2}`);
+    core.info(`arr1: ${[...arr1, ...arr2]}`);
+    core.info(`mergeDeduplicatedArr: ${Array.from(new Set([...arr1, ...arr2]))}`);
     return Array.from(new Set([...arr1, ...arr2]));
 };
 exports.mergeDeduplicatedArr = mergeDeduplicatedArr;
