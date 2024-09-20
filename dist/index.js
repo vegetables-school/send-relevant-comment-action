@@ -29369,8 +29369,10 @@ const core = __importStar(__nccwpck_require__(9093));
  */
 const parsePrOwnRepoRelate = (content) => {
     const regex = /#(\d+)/g;
+    core.info(`content: ${content}`);
     const matches = content?.match(regex);
-    core.info(`parsePrOwnRepoRelate: ${matches}`);
+    core.info(Array.isArray(matches)?.toString());
+    core.info(`match: ${matches}`);
     const result = matches
         ? matches.map(match => parseInt(match.replace('#', '')))
         : [];

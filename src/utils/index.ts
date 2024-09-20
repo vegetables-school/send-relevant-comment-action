@@ -7,8 +7,10 @@ import * as core from '@actions/core'
  */
 export const parsePrOwnRepoRelate = (content?: string | null) => {
   const regex = /#(\d+)/g
+  core.info(`content: ${content}`)
   const matches = content?.match(regex)
-  core.info(`parsePrOwnRepoRelate: ${matches}`)
+  core.info(Array.isArray(matches)?.toString())
+  core.info(`match: ${matches}`)
   const result = matches
     ? matches.map(match => parseInt(match.replace('#', '')))
     : []
